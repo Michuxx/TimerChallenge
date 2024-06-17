@@ -11,6 +11,11 @@ const ResultModal = forwardRef(function ResultModal(
   const formattedRemainingTime = (remainingTime / 1000).toFixed(2);
   const score = Math.round((1 - remainingTime / (targetTime * 1000)) * 100);
 
+  const reset = () => {
+    onReset();
+    dialog.current.close();
+  };
+
   useImperativeHandle(ref, () => {
     return {
       open() {
@@ -29,9 +34,7 @@ const ResultModal = forwardRef(function ResultModal(
         You stopped the timer with{" "}
         <strong>{formattedRemainingTime} seconds left.</strong>
       </p>
-      <form action="dialog" onSubmit={onReset}>
-        <button>Close</button>
-      </form>
+      <button onClick={reset}>Close</button>
     </dialog>,
     document.getElementById("modal")
   );
